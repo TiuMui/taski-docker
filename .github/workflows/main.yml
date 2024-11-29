@@ -39,7 +39,7 @@ jobs:
       # Вызываем flake8 и указываем ему,
       # что нужно проверить файлы только в папке backend/
       run: |
-        docker run -p 5432:5432 --name postgres postgres:13.10
+        docker run -p 5432:5432 -e POSTGRES_USER=django_user - e POSTGRES_PASSWORD=django_password -e POSTGRES_DB=django_db --name postgres postgres:13.10
         python -m flake8 backend/
         cd backend/
         python manage.py test
