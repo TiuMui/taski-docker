@@ -29,9 +29,9 @@ jobs:
     # Запускаем flake8
     - name: Test with flake8 and Django tests
       env:
-        POSTGRES_USER: django_user
+        POSTGRES_USER: postgres
         POSTGRES_PASSWORD: django_password
-        POSTGRES_DB: django_db
+        POSTGRES_DB: postgres
         # Сервер БД запущен в Docker, но его порт проброшен на хост
         # Поэтому подключаемся к 127.0.0.1:5432
         DB_HOST: 127.0.0.1
@@ -39,7 +39,7 @@ jobs:
       # Вызываем flake8 и указываем ему,
       # что нужно проверить файлы только в папке backend/
       run: |
-        docker run -d -p 5432:5432 -e POSTGRES_USER=django_user -e POSTGRES_PASSWORD=django_password -e POSTGRES_DB=django_db --name postgres postgres:13.10
+        docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=django_password --name postgres postgres:13.10
         python -m flake8 backend/
         cd backend/
         python manage.py test
